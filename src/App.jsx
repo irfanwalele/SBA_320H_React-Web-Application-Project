@@ -6,10 +6,16 @@
 
 //takes the name you type, asks the API for matching characters, 
 // and prints the response in the browser console
+
+//giving React another memory box to hold the characters returned by the API
+
+//taking each character stored in React’s memory and showing their name on the page
+
 import { useState } from "react";
 
 function App() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [characters, setCharacters] = useState([]);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -20,7 +26,7 @@ function App() {
 
     const data = await response.json();
 
-    console.log(data);
+    setCharacters(data.results);
   }
 
   return (
@@ -39,7 +45,15 @@ function App() {
         <button type="submit">Search</button>
       </form>
 
-      <p>You typed: {searchTerm}</p>
+      <p>Characters found: {characters.length}</p>
+
+      <section>
+        {characters.map((character) => (
+          <article key={character.id}>
+            <h2>{character.name}</h2>
+          </article>
+        ))}
+      </section>
     </main>
   );
 }
