@@ -13,14 +13,19 @@
 
 //turning each character name into a simple card with a picture and basic information
 
+//showing “looading...” while the app waits for the API to send back character dat
+
 import { useState } from "react";
 
 function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [characters, setCharacters] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(event) {
     event.preventDefault();
+
+    setLoading(true);
 
     const response = await fetch(
       `https://rickandmortyapi.com/api/character/?name=${searchTerm}`
@@ -29,6 +34,7 @@ function App() {
     const data = await response.json();
 
     setCharacters(data.results);
+    setLoading(false);
   }
 
   return (
@@ -47,22 +53,21 @@ function App() {
         <button type="submit">Search</button>
       </form>
 
-      <p>Characters found: {characters.length}</p>
+      {loading && <p>Loading...</p>}
 
-      <section>
-        {characters.map((character) => (
-          <article key={character.id}>
-            <img
-              src={character.image}
-              alt={character.name}
-            />
+      {!loading && (
+        <section>
+          {characters.map((character) => (
+            <article key={character.id}>
+              <img src={character.image} alt={character.name} />
 
-            <h2>{character.name}</h2>
-            <p>Status: {character.status}</p>
-            <p>Species: {character.species}</p>
-          </article>
-        ))}
-      </section>
+              <h2>{character.name}</h2>
+              <p>Status: {character.status}</p>
+              <p>Species: {character.species}</p>
+            </article>
+          ))}
+        </section>
+      )}
     </main>
   );
 }
