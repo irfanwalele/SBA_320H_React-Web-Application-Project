@@ -11,6 +11,8 @@
 
 //taking each character stored in React’s memory and showing their name on the page
 
+//turning each character name into a simple card with a picture and basic information
+
 import { useState } from "react";
 
 function App() {
@@ -50,7 +52,14 @@ function App() {
       <section>
         {characters.map((character) => (
           <article key={character.id}>
+            <img
+              src={character.image}
+              alt={character.name}
+            />
+
             <h2>{character.name}</h2>
+            <p>Status: {character.status}</p>
+            <p>Species: {character.species}</p>
           </article>
         ))}
       </section>
