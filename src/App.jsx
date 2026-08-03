@@ -13,7 +13,9 @@
 
 //turning each character name into a simple card with a picture and basic information
 
-//showing “looading...” while the app waits for the API to send back character dat
+//showing “looading...” while the app waits for the API to send back character 
+
+// error handling gives the app a friendly message instead of breaking when a character cannot be found
 
 import { useState } from "react";
 
@@ -21,20 +23,31 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [characters, setCharacters] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   async function handleSubmit(event) {
     event.preventDefault();
 
     setLoading(true);
+    setError("");
+    setCharacters([]);
 
-    const response = await fetch(
-      `https://rickandmortyapi.com/api/character/?name=${searchTerm}`
-    );
+    try {
+      const response = await fetch(
+        `https://rickandmortyapi.com/api/character/?name=${searchTerm}`
+      );
 
-    const data = await response.json();
+      if (!response.ok) {
+        throw new Error("No characters found.");
+      }
 
-    setCharacters(data.results);
-    setLoading(false);
+      const data = await response.json();
+      setCharacters(data.results);
+    } catch (error) {
+      setError("No characters found. Try another name.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -48,6 +61,7 @@ function App() {
           placeholder="Enter a character name"
           value={searchTerm}
           onChange={(event) => setSearchTerm(event.target.value)}
+          required
         />
 
         <button type="submit">Search</button>
@@ -55,7 +69,9 @@ function App() {
 
       {loading && <p>Loading...</p>}
 
-      {!loading && (
+      {error && <p>{error}</p>}
+
+      {!loading && !error && (
         <section>
           {characters.map((character) => (
             <article key={character.id}>
