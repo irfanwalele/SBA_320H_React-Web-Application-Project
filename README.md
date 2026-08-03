@@ -2,6 +2,10 @@
 
 This is a simple React app that lets users search for characters from Rick and Morty.
 
+## Live Site
+
+https://chimerical-chebakia-472526.netlify.app/
+
 ## Technologies Used
 
 * HTML
