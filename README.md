@@ -1,16 +1,36 @@
-# React + Vite
+# Rick and Morty Character Finder
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+This is a simple React app that lets users search for characters from Rick and Morty.
 
-Currently, two official plugins are available:
+## Technologies Used
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+* HTML
+* CSS
+* JavaScript
+* React
+* Vite
+* Rick and Morty API
 
-## React Compiler
+## Approach
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+I used React and `useState` to store the search input, character results, loading status, and error messages.
 
-## Expanding the Oxlint configuration
+When the user searches for a character, the app uses `fetch()` to get data from the Rick and Morty API. The results are then displayed as cards with the character's image, name, status, and species.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## Live Site
+
+Netlify link will be added after deployment.
+
+## How to Use
+
+1. Type a character name into the search box.
+2. Click the Search button.
+3. View the matching characters.
+
+You can try names like Rick, Morty, or Summer.
+
+## Unsolved Problems
+
+* The app only shows the first page of results.
+* The app needs an internet connection to work.
+
